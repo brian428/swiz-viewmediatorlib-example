@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:swiz="http://swiz.swizframework.org"
+			   xmlns:local="*" 
+			   xmlns:mediateview="com.briankotek.mediateview.*" 
+			   xmlns:controller="controller.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import org.swizframework.events.BeanEvent;
+			
+			private function doTearDown() : void
+			{
+				dispatchEvent( new BeanEvent( BeanEvent.TEAR_DOWN_BEAN, testController ) );
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<swiz:Swiz>
+			<swiz:config>
+				<swiz:SwizConfig />
+			</swiz:config>
+			<swiz:beanProviders>
+				<swiz:BeanProvider>
+					<swiz:beans>
+						<controller:TestController id="testController" />
+					</swiz:beans>
+				</swiz:BeanProvider>
+			</swiz:beanProviders>
+			<swiz:customProcessors>
+				<mediateview:MediateViewProcessor id="mediateViewProcessor" />
+			</swiz:customProcessors>
+		</swiz:Swiz>
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:HorizontalLayout gap="20" />
+	</s:layout>
+	
+	<local:TestPanel id="testPanel" title="Test Panel Number 1" width="50%" height="100%" />
+	<local:TestPanel id="testPanel2" title="Test Panel Number 2" width="50%" height="100%" />
+	<s:Button id="tearDownButton" label="Tear Down Bean" click="doTearDown()" />
+</s:Application>
